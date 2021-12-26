@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ASHISH/AndroidStudioProjects/netmesh/app/src/main/res/drawable/bg_edit_text.xml" value="0.2390194075587334" />
+        <entry key="..\:/Users/ASHISH/AndroidStudioProjects/netmesh/app/src/main/res/drawable/bg_login_button.xml" value="0.2390194075587334" />
+        <entry key="..\:/Users/ASHISH/AndroidStudioProjects/netmesh/app/src/main/res/drawable/ic_arrow_back_ios.xml" value="0.2390194075587334" />
+        <entry key="..\:/Users/ASHISH/AndroidStudioProjects/netmesh/app/src/main/res/layout/activity_home.xml" value="0.2234375" />
+        <entry key="..\:/Users/ASHISH/AndroidStudioProjects/netmesh/app/src/main/res/layout/activity_login.xml" value="0.20625" />
+        <entry key="..\:/Users/ASHISH/AndroidStudioProjects/netmesh/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/ASHISH/AndroidStudioProjects/netmesh2/app/src/main/res/layout/activity_main.xml" value="0.20625" />
       </map>
     </option>

@@ -32,6 +32,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    buildFeatures{
+        viewBinding = true
+    }
+
+
 }
 
 dependencies {
@@ -48,4 +53,5 @@ dependencies {
 
     // The latest stable App SDK for Android.
     implementation 'com.tuya.smart:tuyasmart:3.32.6'
+
 }
