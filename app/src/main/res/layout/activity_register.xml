@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:layout_marginBottom="7dp"
-            android:text="Log In"
+            android:text="Register"
             android:textColor="@color/black"
             android:textSize="28dp"
             android:textStyle="bold" />
@@ -69,7 +69,7 @@
             android:padding="18dp" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_login"
+            android:id="@+id/btn_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="11dp"
@@ -77,26 +77,9 @@
             android:layout_marginEnd="11dp"
             android:background="@drawable/bg_edit_text"
             android:padding="12dp"
-            android:text="Log In"
+            android:text="Register"
             android:textSize="15dp" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Forgot Password"
-                android:textColor="@color/purple_200"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 

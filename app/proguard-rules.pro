@@ -19,6 +19,7 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
 #fastJson
 -keep class com.alibaba.fastjson.**{*;}
 -dontwarn com.alibaba.fastjson.**

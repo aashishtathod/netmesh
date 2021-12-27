@@ -15,6 +15,8 @@ import com.tuya.smart.home.sdk.TuyaHomeSdk;
 public class LoginActivity extends AppCompatActivity {
     ActivityLoginBinding binding;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,10 +32,10 @@ public class LoginActivity extends AppCompatActivity {
                 String password = binding.password.getText().toString().trim();
 
                 if (!countryCode.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
+                    Toast.makeText(LoginActivity.this, "Creating Account", Toast.LENGTH_SHORT).show();
                     TuyaHomeSdk.getUserInstance().loginWithEmail(countryCode, email, password, new ILoginCallback() {
                         @Override
                         public void onSuccess(User user) {
-                            Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                         }
 
@@ -53,7 +55,8 @@ public class LoginActivity extends AppCompatActivity {
         binding.backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+              //  startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                LoginActivity.super.onBackPressed();
                 finish();
             }
         });

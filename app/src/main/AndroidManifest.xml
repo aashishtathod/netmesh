@@ -13,6 +13,12 @@
         android:theme="@style/Theme.Netmesh"
         tools:replace="android:allowBackup,android:supportsRtl">
         <activity
+            android:name=".VerificationCodeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
             android:name=".HomeActivity"
             android:exported="false" />
         <activity
