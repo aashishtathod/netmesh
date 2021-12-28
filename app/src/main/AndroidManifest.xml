@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Netmesh"
         tools:replace="android:allowBackup,android:supportsRtl">
         <activity
+            android:name=".DeviceControlActivity"
+            android:exported="false" />
+        <activity
             android:name=".VerificationCodeActivity"
             android:exported="false" />
         <activity

@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
                 String password = binding.password.getText().toString().trim();
 
                 if (!countryCode.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
-                    Toast.makeText(LoginActivity.this, "Creating Account", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Signing In", Toast.LENGTH_SHORT).show();
                     TuyaHomeSdk.getUserInstance().loginWithEmail(countryCode, email, password, new ILoginCallback() {
                         @Override
                         public void onSuccess(User user) {
