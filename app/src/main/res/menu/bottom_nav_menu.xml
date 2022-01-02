@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/white"
+        android:title="White"
+        android:icon="@drawable/ic_highlight"/>
+    <item
+        android:id="@+id/color"
+        android:title="Color"
+        android:icon="@drawable/ic_color_lens"/>
+
+</menu>

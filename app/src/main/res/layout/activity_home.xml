@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".VerificationCodeActivity">
+    tools:context=".activities.VerificationCodeActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -30,9 +30,9 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview1"
         app:cardElevation="5dp"
-        android:layout_margin="10dp"
+        android:layout_margin="25dp"
         android:padding="10dp"
-        android:backgroundTint="@color/grey"
+        android:backgroundTint="@color/fade_blue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar">
@@ -82,8 +82,9 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:background="@color/purple_200"
-        android:padding="5dp"
+        android:background="@drawable/bg_edit_text"
+        android:backgroundTint="@color/purple_700"
+        android:padding="10dp"
         android:text="Search  Devices"
         android:textColor="@color/white" />
 

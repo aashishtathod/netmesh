@@ -1,4 +1,4 @@
-package com.example.netmesh;
+package com.example.netmesh.activities;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -33,8 +33,8 @@ public class HomeActivity extends AppCompatActivity {
 
     ArrayList<String> roomList = new ArrayList<>();
 
-    private String ssid = "Galaxy M510F8D";
-    private String password = "acdf55188";
+    private String ssid = "Airtel_8308510460";
+    private String password = "air19457";
 
     private HomeBean currentHomeBean;
     private DeviceBean currentDeviceBean;
@@ -77,15 +77,14 @@ public class HomeActivity extends AppCompatActivity {
         });
 
 
-       binding.cardview1.setOnClickListener(new View.OnClickListener() {
+        binding.cardview1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (currentDeviceBean != null) {
                     Intent intent = new Intent(HomeActivity.this, DeviceControlActivity.class);
                     intent.putExtra("DeviceId", currentDeviceBean.devId);
-                    //   intent.putExtra("DeviceName", currentDeviceBean.name);
-                    //   intent.putExtra("ProductId", currentDeviceBean.productId);
-
+                    intent.putExtra("DeviceName", currentDeviceBean.name);
+                    intent.putExtra("ProductId", currentDeviceBean.productId);
                     startActivity(intent);
                 }
             }

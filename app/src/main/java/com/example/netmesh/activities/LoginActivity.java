@@ -1,4 +1,4 @@
-package com.example.netmesh;
+package com.example.netmesh.activities;
 
 import android.content.Intent;
 import android.os.Bundle;

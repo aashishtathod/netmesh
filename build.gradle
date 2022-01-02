@@ -11,7 +11,7 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
-allprojects{
+allprojects {
     repositories {
         jcenter()
         google()
@@ -19,10 +19,10 @@ allprojects{
         maven {
             url "https://maven-other.tuya.com/repository/maven-releases/"
         }
+        maven { url "https://jitpack.io" }
     }
 
 }
-
 
 
 task clean(type: Delete) {
