@@ -20,11 +20,7 @@ import com.tuya.smart.sdk.centralcontrol.api.ILightListener;
 import com.tuya.smart.sdk.centralcontrol.api.ITuyaLightDevice;
 import com.tuya.smart.sdk.centralcontrol.api.bean.LightDataPoint;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link WhiteFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class WhiteFragment extends Fragment {
     private FragmentWhiteBinding binding;
 
@@ -47,23 +43,23 @@ public class WhiteFragment extends Fragment {
         return fragment;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            devId = getArguments().getString(ARG_PARAM1);
-            devName = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = bind(inflater.inflate(R.layout.fragment_white, container, false));
 
+        if (getArguments() != null) {
+            devId = getArguments().getString(ARG_PARAM1);
+            devName = getArguments().getString(ARG_PARAM2);
+        }
+       // Toast.makeText(getContext(), devId + " - " + devName, Toast.LENGTH_SHORT).show();
+
+
         if (devId != null) {
             binding.name.setText(devName);
-
             ITuyaLightDevice controlDevice = new TuyaLightDevice(devId);
+
+           // controlDevice.unRegisterDevListener();
 
             controlDevice.registerLightListener(new ILightListener() {
                 @Override
@@ -111,7 +107,7 @@ public class WhiteFragment extends Fragment {
                     controlDevice.brightness(progress, new IResultCallback() {
                         @Override
                         public void onError(String code, String error) {
-                            Toast.makeText(getContext(), "Light brightness Change Failed", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), /*"Light brightness Change Failed"*/ error, Toast.LENGTH_LONG).show();
                         }
 
                         @Override
@@ -133,15 +129,18 @@ public class WhiteFragment extends Fragment {
             binding.cool.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
                     controlDevice.colorTemperature(progress, new IResultCallback() {
                         @Override
                         public void onError(String code, String error) {
+                            Toast.makeText(getContext(), /*"Light Cool Change Failed"*/ error, Toast.LENGTH_LONG).show();
                         }
 
                         @Override
                         public void onSuccess() {
                         }
                     });
+
                 }
 
                 @Override
@@ -152,9 +151,6 @@ public class WhiteFragment extends Fragment {
                 public void onStopTrackingTouch(SeekBar seekBar) {
                 }
             });
-
-
-
 
 
         } else {

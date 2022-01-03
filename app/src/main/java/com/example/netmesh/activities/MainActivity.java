@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        if (TuyaHomeSdk.getUserInstance().getUser() != null){
+        if (TuyaHomeSdk.getUserInstance().getUser() != null) {
             startActivity(new Intent(MainActivity.this, HomeActivity.class));
         }
 
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
-
+                finish();
             }
         });
 

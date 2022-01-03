@@ -43,26 +43,25 @@ public class ColorFragment extends Fragment {
         return fragment;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            devId = getArguments().getString(ARG_PARAM1);
-            devName = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = bind(inflater.inflate(R.layout.fragment_color, container, false));
 
+        if (getArguments() != null) {
+            devId = getArguments().getString(ARG_PARAM1);
+            devName = getArguments().getString(ARG_PARAM2);
+        }
+        Toast.makeText(getContext(), devId + " - " + devName, Toast.LENGTH_SHORT).show();
+
+
         ITuyaLightDevice controlDevice;
 
         float[] hsv = new float[3];
 
-         float[] hue = new float[1];
-         float[] sat = new float[1];
-         float[] val = new float[1];
+        float[] hue = new float[1];
+        float[] sat = new float[1];
+        float[] val = new float[1];
 
         binding.colorPickerView.addOnColorChangedListener(new OnColorChangedListener() {
             @Override
@@ -82,8 +81,10 @@ public class ColorFragment extends Fragment {
         });
 
 
+
         if (devId != null) {
             controlDevice = new TuyaLightDevice(devId);
+            controlDevice.unRegisterDevListener();
 
             controlDevice.registerLightListener(new ILightListener() {
                 @Override
@@ -120,12 +121,9 @@ public class ColorFragment extends Fragment {
             });
 
 
-
         } else {
             Toast.makeText(getContext(), "Device Id is empty", Toast.LENGTH_SHORT).show();
         }
-
-
 
 
         return binding.getRoot();

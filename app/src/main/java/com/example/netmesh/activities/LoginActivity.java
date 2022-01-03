@@ -37,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(User user) {
                             startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                            finish();
                         }
 
                         @Override

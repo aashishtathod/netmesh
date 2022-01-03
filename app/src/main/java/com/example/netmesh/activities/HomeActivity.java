@@ -83,10 +83,10 @@ public class HomeActivity extends AppCompatActivity {
                 if (currentDeviceBean != null) {
                     Intent intent = new Intent(HomeActivity.this, DeviceControlActivity.class);
                     intent.putExtra("DeviceId", currentDeviceBean.devId);
-                    intent.putExtra("DeviceName", currentDeviceBean.name);
-                    intent.putExtra("ProductId", currentDeviceBean.productId);
+                    intent.putExtra("DeviceName",currentDeviceBean.name);
+                    //    intent.putExtra("ProductId", currentDeviceBean.productId);
                     startActivity(intent);
-                }
+               }
             }
         });
 
