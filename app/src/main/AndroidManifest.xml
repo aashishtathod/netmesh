@@ -4,6 +4,7 @@
     package="com.example.netmesh">
 
     <application
+
         android:name=".activities.TuyaSmartApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

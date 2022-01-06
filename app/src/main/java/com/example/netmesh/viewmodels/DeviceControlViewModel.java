@@ -17,16 +17,20 @@ import java.lang.ref.WeakReference;
 
 public class DeviceControlViewModel extends ViewModel {
     public MutableLiveData<Boolean> isWorkModeColor = new MutableLiveData<>();
-    public MutableLiveData<Boolean> isColorSelected = new MutableLiveData<>();
+    public MutableLiveData<Boolean> isWorkModeWhite = new MutableLiveData<>();
     private ITuyaLightDevice controlDevice;
     private WeakReference<Activity> context;
+    public String deviceName;
 
 
+    public boolean createDevice(String devId, Activity activity) {
 
-    public void createDevice(String devId , Activity activity) {
+        if (controlDevice != null) {
+            return true;
+        }
 
         isWorkModeColor.setValue(false);
-        isColorSelected.setValue(false);
+        isWorkModeWhite.setValue(true);
         this.context = new WeakReference<>(activity);
 
         controlDevice = new TuyaLightDevice(devId);
@@ -52,18 +56,19 @@ public class DeviceControlViewModel extends ViewModel {
             public void onDevInfoUpdate() {
             }
         });
+        return true;
     }
 
     public void switchBulb(boolean isChecked) {
         controlDevice.powerSwitch(isChecked, new IResultCallback() {
             @Override
             public void onError(String code, String error) {
-                 Toast.makeText(context.get(), error, Toast.LENGTH_LONG).show();
+                Toast.makeText(context.get(), error, Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onSuccess() {
-                Toast.makeText(context.get(), "Successfully ", Toast.LENGTH_LONG).show();
+                Toast.makeText(context.get(), "Successfully changed the light status ", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -73,7 +78,7 @@ public class DeviceControlViewModel extends ViewModel {
         controlDevice.brightness(progress, new IResultCallback() {
             @Override
             public void onError(String code, String error) {
-                Toast.makeText(context.get(), /*"Light brightness Change Failed"*/ error, Toast.LENGTH_LONG).show();
+                Toast.makeText(context.get(), error, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -86,7 +91,7 @@ public class DeviceControlViewModel extends ViewModel {
         controlDevice.colorTemperature(progress, new IResultCallback() {
             @Override
             public void onError(String code, String error) {
-                 Toast.makeText(context.get(), /*"Light Cool Change Failed"*/ error, Toast.LENGTH_LONG).show();
+                Toast.makeText(context.get(), "Light Cool Change Failed due to " + error, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -95,22 +100,28 @@ public class DeviceControlViewModel extends ViewModel {
         });
     }
 
-    public void switchModeToColor(LightMode lightMode) {
+    public void switchMode(LightMode lightMode) {
         controlDevice.workMode(lightMode, new IResultCallback() {
             @Override
             public void onError(String code, String error) {
-                 Toast.makeText(context.get(), /*"Light Cool Change Failed"*/ error, Toast.LENGTH_LONG).show();
+                Toast.makeText(context.get(), error, Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onSuccess() {
-                isWorkModeColor.setValue(true);
+                if (lightMode == LightMode.MODE_COLOUR) {
+                    isWorkModeColor.setValue(true);
+                    isWorkModeWhite.setValue(false);
+                } else if (lightMode == LightMode.MODE_WHITE) {
+                    isWorkModeWhite.setValue(true);
+                    isWorkModeColor.setValue(false);
+                }
             }
         });
     }
 
-    public void switchColor(int hue){
-        controlDevice.colorHSV(hue, 100, 100, new IResultCallback() {
+    public void switchColor(int hue, int sat, int val) {
+        controlDevice.colorHSV(hue, sat, val, new IResultCallback() {
             @Override
             public void onError(String code, String error) {
                 Toast.makeText(context.get(), error, Toast.LENGTH_SHORT).show();
