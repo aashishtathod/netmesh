@@ -20,6 +20,13 @@
                 android:id="@+id/backButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:src="@drawable/ic_arrow_back_ios" />
+
+            <ImageButton
+                android:id="@+id/addDevice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginEnd="20dp"
                 android:background="@color/white"
@@ -27,66 +34,20 @@
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardview1"
-        app:cardElevation="5dp"
-        android:layout_margin="25dp"
-        android:padding="10dp"
-        android:backgroundTint="@color/fade_blue"
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_container_home_activity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomNavigationView"
+        android:layout_below="@id/toolbar" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/deviceName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:padding="5dp"
-                android:text="Device Name : "
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/deviceId"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:padding="5dp"
-                android:text="Device Id :"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/productId"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:padding="5dp"
-                android:text="Product Id :"
-                android:textSize="18sp" />
-
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_scan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/bg_edit_text"
-        android:backgroundTint="@color/purple_700"
-        android:padding="10dp"
-        android:text="Search  Devices"
-        android:textColor="@color/white" />
+        app:menu="@menu/home_activity_bottom_nav_menu" />
 
 
 </RelativeLayout>

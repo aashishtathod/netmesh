@@ -18,8 +18,11 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        if (TuyaHomeSdk.getUserInstance().getUser() != null) {
-            startActivity(new Intent(MainActivity.this, HomeActivity.class));
+        if (TuyaHomeSdk.getUserInstance().getUser()!= null) {
+            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+            intent.putExtra("type",1);
+            startActivity(intent);
+            finish();
         }
 
         binding.btnLogin.setOnClickListener(new View.OnClickListener() {

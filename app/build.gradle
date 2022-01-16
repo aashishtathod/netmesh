@@ -73,5 +73,10 @@ dependencies {
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.4.0"
     implementation "androidx.lifecycle:lifecycle-common-java8:2.4.0"
 
+    // State Progress Bar
+    implementation "com.kofigyan.stateprogressbar:stateprogressbar:1.0.0"
+
+
+
 
 }

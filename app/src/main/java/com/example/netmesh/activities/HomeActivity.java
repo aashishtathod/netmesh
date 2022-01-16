@@ -1,33 +1,79 @@
 package com.example.netmesh.activities;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.example.netmesh.R;
 import com.example.netmesh.databinding.ActivityHomeBinding;
-import com.tuya.smart.home.sdk.TuyaHomeSdk;
-import com.tuya.smart.home.sdk.bean.HomeBean;
-import com.tuya.smart.home.sdk.builder.ActivatorBuilder;
-import com.tuya.smart.home.sdk.callback.ITuyaHomeResultCallback;
-import com.tuya.smart.sdk.api.ITuyaActivator;
-import com.tuya.smart.sdk.api.ITuyaActivatorGetToken;
-import com.tuya.smart.sdk.api.ITuyaSmartActivatorListener;
-import com.tuya.smart.sdk.bean.DeviceBean;
-import com.tuya.smart.sdk.enums.ActivatorEZStepCode;
-import com.tuya.smart.sdk.enums.ActivatorModelEnum;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import com.example.netmesh.fragments.HomeFragment;
+import com.example.netmesh.fragments.ProfileFragment;
+import com.example.netmesh.viewmodels.HomeActivityViewModel;
+import com.google.android.material.navigation.NavigationBarView;
 
 public class HomeActivity extends AppCompatActivity {
     private ActivityHomeBinding binding;
+    private HomeActivityViewModel viewModel;
 
-    String homeName = "MyHome";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = ActivityHomeBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        viewModel = new ViewModelProvider(this).get(HomeActivityViewModel.class);
+
+        int type = 0;
+
+        if (getIntent().hasExtra("type")) {
+            type = getIntent().getIntExtra("type", 0);
+        }
+
+        if (type == 1) {
+            viewModel.createHome();
+        }
+
+
+
+        binding.addDevice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeActivity.this,DeviceSearchActivity.class));
+            }
+        });
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_home_activity, new HomeFragment()).commit();
+
+
+        binding.bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.home:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_home_activity, new HomeFragment()).commit();
+                        return true;
+                    case R.id.person:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_home_activity, new ProfileFragment()).commit();
+                        return true;
+                }
+
+                return false;
+            }
+        });
+
+    }
+}
+
+
+        /*
+
+
+         String homeName = "MyHome";
     String[] rooms = {"Kitchen", "Bedroom", "Study"};
     String currentRegistrationToken;
 
@@ -41,11 +87,7 @@ public class HomeActivity extends AppCompatActivity {
 
     ITuyaActivator tuyaActivator;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = ActivityHomeBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+
         roomList.addAll(Arrays.asList(rooms));
 
         createHome(homeName, roomList);
@@ -184,4 +226,4 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-}
+}*/

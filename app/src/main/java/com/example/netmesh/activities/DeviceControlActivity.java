@@ -35,7 +35,7 @@ public class DeviceControlActivity extends AppCompatActivity {
         viewModel.deviceName = devName;
 
         if (viewModel.createDevice(devId, this)) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WhiteFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_device_control, new WhiteFragment()).commit();
         }
 
         binding.bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -43,10 +43,10 @@ public class DeviceControlActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.white:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WhiteFragment()).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_device_control, new WhiteFragment()).commit();
                         return true;
                     case R.id.color:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ColorFragment()).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_device_control, new ColorFragment()).commit();
                         return true;
                 }
 
