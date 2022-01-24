@@ -1,12 +1,13 @@
 package com.example.netmesh.viewmodels;
 
+import android.app.Activity;
+
 import androidx.lifecycle.ViewModel;
 
 import com.tuya.smart.home.sdk.TuyaHomeSdk;
 import com.tuya.smart.home.sdk.bean.HomeBean;
 import com.tuya.smart.home.sdk.callback.ITuyaGetHomeListCallback;
 import com.tuya.smart.home.sdk.callback.ITuyaHomeResultCallback;
-import com.tuya.smart.sdk.api.ITuyaActivator;
 import com.tuya.smart.sdk.bean.DeviceBean;
 
 import java.util.ArrayList;
@@ -28,7 +29,6 @@ public class HomeActivityViewModel extends ViewModel {
     private HomeBean currentHomeBean;
     private DeviceBean currentDeviceBean;
 
-    ITuyaActivator tuyaActivator;
 
 
     public void createHome() {
@@ -49,12 +49,13 @@ public class HomeActivityViewModel extends ViewModel {
     }
 
 
-    public List<DeviceBean> getDeviceListFromCloud() {
+    public List<DeviceBean> getDeviceListFromCloud(Activity activity) {
         TuyaHomeSdk.getHomeManagerInstance().queryHomeList(new ITuyaGetHomeListCallback() {
             @Override
             public void onSuccess(List<HomeBean> homeBeans) {
                 homeBeansList = homeBeans;
                 devicesBeansList = homeBeansList.get(0).getDeviceList();
+
             }
 
             @Override
@@ -67,6 +68,8 @@ public class HomeActivityViewModel extends ViewModel {
 
 
 }
+
+
 
 /*
 

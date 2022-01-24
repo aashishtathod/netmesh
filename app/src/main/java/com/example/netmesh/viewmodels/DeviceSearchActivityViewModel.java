@@ -24,8 +24,8 @@ public class DeviceSearchActivityViewModel extends ViewModel {
 
     List<HomeBean> homeBeansList;
     ITuyaActivator tuyaActivator;
-    private String ssid = "Airtel_8308510460";
-    private String password = "air19457";
+    private String ssid = "123456789";
+    private String password = "123456789";
     String currentRegistrationToken;
     public DeviceBean currentDeviceBean;
     private WeakReference<Activity> context;
@@ -49,7 +49,7 @@ public class DeviceSearchActivityViewModel extends ViewModel {
             public void onSuccess(List<HomeBean> homeBeans) {
                 homeBeansList = homeBeans;
                 Toast.makeText(context.get(), "HomeList Successful", Toast.LENGTH_SHORT).show();
-                getRegistrationToken();
+                getRegistrationToken1();
             }
 
             @Override
@@ -64,7 +64,7 @@ public class DeviceSearchActivityViewModel extends ViewModel {
 
 
 
-    public void getRegistrationToken() {
+    public void getRegistrationToken1() {
          long homeId = homeBeansList.get(0).getHomeId();
         // Toast.makeText(context.get(),String.valueOf(homeBeansList.get(0).getHomeId()), Toast.LENGTH_SHORT).show();
 
@@ -127,5 +127,7 @@ public class DeviceSearchActivityViewModel extends ViewModel {
                 })
 
         );
+
+        tuyaActivator.start();
     }
 }

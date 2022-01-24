@@ -35,6 +35,8 @@ public class WhiteFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = bind(inflater.inflate(R.layout.fragment_white, container, false));
 
+        binding.switchCheck.setChecked(true);
+
         binding.switchCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

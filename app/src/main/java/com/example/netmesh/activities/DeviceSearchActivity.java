@@ -15,6 +15,7 @@ import com.kofigyan.stateprogressbar.StateProgressBar;
 import com.tuya.smart.home.sdk.TuyaHomeSdk;
 import com.tuya.smart.home.sdk.bean.HomeBean;
 import com.tuya.smart.home.sdk.builder.ActivatorBuilder;
+import com.tuya.smart.home.sdk.callback.ITuyaGetHomeListCallback;
 import com.tuya.smart.home.sdk.callback.ITuyaHomeResultCallback;
 import com.tuya.smart.sdk.api.ITuyaActivator;
 import com.tuya.smart.sdk.api.ITuyaActivatorGetToken;
@@ -31,6 +32,8 @@ public class DeviceSearchActivity extends AppCompatActivity {
     private DeviceSearchActivityViewModel viewModel;
     String[] descriptionData = {"Scanning\nDevice", "Binding\nDevice", "Register on\nCloud"};
 
+    List<HomeBean> homeBeansList;
+
 
     String homeName = "MyHome";
     String[] rooms = {"Kitchen", "Bedroom", "Study"};
@@ -38,8 +41,8 @@ public class DeviceSearchActivity extends AppCompatActivity {
 
     ArrayList<String> roomList = new ArrayList<>();
 
-    private String ssid = "123456789";
-    private String password = "123456789";
+    private String ssid = "123456789";       //Airtel_8308510460   //123456789
+    private String password = "123456789";   //air19457            //123456789
 
     private HomeBean currentHomeBean;
     private DeviceBean currentDeviceBean;
@@ -77,7 +80,7 @@ public class DeviceSearchActivity extends AppCompatActivity {
                     Intent intent = new Intent(DeviceSearchActivity.this, DeviceControlActivity.class);
                     intent.putExtra("DeviceId", viewModel.currentDeviceBean.devId);
                     intent.putExtra("DeviceName", viewModel.currentDeviceBean.name);
-                    startActivity(intent);
+                    //  startActivity(intent);
 
                 }
             }
@@ -87,7 +90,9 @@ public class DeviceSearchActivity extends AppCompatActivity {
         binding.progressBar.setVisibility(View.VISIBLE);
 
 
-        createHome(homeName, roomList);
+        queryHomeList();
+      /*  createHome(homeName, roomList);
+
 
         binding.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,7 +105,7 @@ public class DeviceSearchActivity extends AppCompatActivity {
 
                 }
             }
-        });
+        });*/
 
 
         // viewModel.queryHomeList(this);
@@ -112,6 +117,44 @@ public class DeviceSearchActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+
+    public void queryHomeList() {
+        TuyaHomeSdk.getHomeManagerInstance().queryHomeList(new ITuyaGetHomeListCallback() {
+            @Override
+            public void onSuccess(List<HomeBean> homeBeans) {
+                homeBeansList = homeBeans;
+                Toast.makeText(DeviceSearchActivity.this, "HomeList Successful =" + homeBeansList.get(0).getHomeId(), Toast.LENGTH_SHORT).show();
+                getRegistrationToken1();
+            }
+
+            @Override
+            public void onError(String errorCode, String error) {
+                Toast.makeText(DeviceSearchActivity.this, error, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
+
+    public void getRegistrationToken1() {
+        long homeId = homeBeansList.get(0).getHomeId();
+        // Toast.makeText(context.get(),String.valueOf(homeBeansList.get(0).getHomeId()), Toast.LENGTH_SHORT).show();
+
+        TuyaHomeSdk.getActivatorInstance().getActivatorToken(homeId, new ITuyaActivatorGetToken() {
+            @Override
+            public void onSuccess(String token) {
+             //   Toast.makeText(DeviceSearchActivity.this, "Token Successful " + token, Toast.LENGTH_SHORT).show();
+                currentRegistrationToken = token;
+                searchDevices(currentRegistrationToken);
+            }
+
+            @Override
+            public void onFailure(String errorCode, String errorMsg) {
+                Toast.makeText(DeviceSearchActivity.this, errorMsg, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 
@@ -179,6 +222,11 @@ public class DeviceSearchActivity extends AppCompatActivity {
                         Toast.makeText(DeviceSearchActivity.this, "Device Detection Successful", Toast.LENGTH_LONG).show();
                         currentDeviceBean = devResp;
                         binding.stateProgressBar.setCurrentStateNumber(StateProgressBar.StateNumber.THREE);
+                        /*
+                        ArrayList<DeviceBean> deviceBeanArrayList = new ArrayList<>();
+                        deviceBeanArrayList.add(currentDeviceBean);
+                        currentHomeBean.setDeviceList(deviceBeanArrayList);
+                        */
                         tuyaActivator.stop();
 
                         Intent intent = new Intent(DeviceSearchActivity.this, DeviceControlActivity.class);
