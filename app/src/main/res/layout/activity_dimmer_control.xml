@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Smart Bulb"
+                android:text="Smart Dimmer"
                 android:textAlignment="center"
                 android:textColor="@color/purple_700"
                 android:textSize="30dp"
@@ -86,7 +86,7 @@
                     android:textSize="18dp" />
 
                 <androidx.appcompat.widget.AppCompatSeekBar
-                    android:id="@+id/brightness"
+                    android:id="@+id/dimmerSeekBar"
                     android:layout_width="match_parent"
                     android:progressTint="@color/purple_700"
                     android:thumbTint="@color/purple_700"
@@ -95,28 +95,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Cool   "
-                    android:textColor="@color/black"
-                    android:textSize="18dp" />
-
-                <androidx.appcompat.widget.AppCompatSeekBar
-                    android:id="@+id/cool"
-                    android:progressTint="@color/purple_700"
-                    android:thumbTint="@color/purple_700"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical" />
-
-            </LinearLayout>
 
 
         </LinearLayout>

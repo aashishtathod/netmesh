@@ -13,17 +13,26 @@
         android:theme="@style/Theme.Netmesh"
         tools:replace="android:allowBackup,android:supportsRtl">
         <activity
+            android:name=".activities.DimmerControlActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.SwitchControlActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.DeviceTypeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.WifiPassActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.SplashScreenActivity"
-            android:exported="true" >
-
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name=".activities.HomeManagementActivity"
             android:exported="false" />
@@ -47,15 +56,14 @@
             android:exported="false" />
         <activity
             android:name=".activities.MainActivity"
-            android:exported="true"/>
-            <meta-data
-                android:name="TUYA_SMART_APPKEY"
-                android:value="sxm7kvushpstqxnxwxqf" />
-            <meta-data
-                android:name="TUYA_SMART_SECRET"
-                android:value="f5nhfytqwtxr3sqqrjxq3tvuhfvyhww7" />
+            android:exported="true" />
 
-
+        <meta-data
+            android:name="TUYA_SMART_APPKEY"
+            android:value="sxm7kvushpstqxnxwxqf" />
+        <meta-data
+            android:name="TUYA_SMART_SECRET"
+            android:value="f5nhfytqwtxr3sqqrjxq3tvuhfvyhww7" />
     </application>
 
 </manifest>

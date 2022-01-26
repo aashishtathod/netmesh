@@ -16,7 +16,6 @@ import com.tuya.smart.home.sdk.TuyaHomeSdk;
 import com.tuya.smart.home.sdk.bean.HomeBean;
 import com.tuya.smart.home.sdk.builder.ActivatorBuilder;
 import com.tuya.smart.home.sdk.callback.ITuyaGetHomeListCallback;
-import com.tuya.smart.home.sdk.callback.ITuyaHomeResultCallback;
 import com.tuya.smart.sdk.api.ITuyaActivator;
 import com.tuya.smart.sdk.api.ITuyaActivatorGetToken;
 import com.tuya.smart.sdk.api.ITuyaSmartActivatorListener;
@@ -24,30 +23,22 @@ import com.tuya.smart.sdk.bean.DeviceBean;
 import com.tuya.smart.sdk.enums.ActivatorEZStepCode;
 import com.tuya.smart.sdk.enums.ActivatorModelEnum;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DeviceSearchActivity extends AppCompatActivity {
     private ActivityDeviceSearchBinding binding;
     private DeviceSearchActivityViewModel viewModel;
-    String[] descriptionData = {"Scanning\nDevice", "Binding\nDevice", "Register on\nCloud"};
+    private String[] descriptionData = {"Scanning\nDevice", "Binding\nDevice", "Register on\nCloud"};
 
-    List<HomeBean> homeBeansList;
+    private List<HomeBean> homeBeansList;
+    private String currentRegistrationToken;
 
+    private String ssid;       //Airtel_8308510460   //123456789
+    private String password;   //air19457            //123456789
+    private  String type;
 
-    String homeName = "MyHome";
-    String[] rooms = {"Kitchen", "Bedroom", "Study"};
-    String currentRegistrationToken;
-
-    ArrayList<String> roomList = new ArrayList<>();
-
-    private String ssid = "123456789";       //Airtel_8308510460   //123456789
-    private String password = "123456789";   //air19457            //123456789
-
-    private HomeBean currentHomeBean;
     private DeviceBean currentDeviceBean;
-
-    ITuyaActivator tuyaActivator;
+    private ITuyaActivator tuyaActivator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +46,13 @@ public class DeviceSearchActivity extends AppCompatActivity {
         binding = ActivityDeviceSearchBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         viewModel = new ViewModelProvider(this).get(DeviceSearchActivityViewModel.class);
+
+        ssid = getIntent().getStringExtra("wifi");
+        password = getIntent().getStringExtra("pass");
+        type = getIntent().getStringExtra("type");
+
+      //  Toast.makeText(this, ssid +"/"+password +"/"+type, Toast.LENGTH_SHORT).show();
+
 
         viewModel.devFound.observe(this, new Observer<Boolean>() {
             @Override
@@ -90,7 +88,10 @@ public class DeviceSearchActivity extends AppCompatActivity {
         binding.progressBar.setVisibility(View.VISIBLE);
 
 
-        queryHomeList();
+
+            queryHomeList();
+
+
       /*  createHome(homeName, roomList);
 
 
@@ -126,7 +127,7 @@ public class DeviceSearchActivity extends AppCompatActivity {
             public void onSuccess(List<HomeBean> homeBeans) {
                 homeBeansList = homeBeans;
                 Toast.makeText(DeviceSearchActivity.this, "HomeList Successful =" + homeBeansList.get(0).getHomeId(), Toast.LENGTH_SHORT).show();
-                getRegistrationToken1();
+                getRegistrationToken();
             }
 
             @Override
@@ -138,14 +139,14 @@ public class DeviceSearchActivity extends AppCompatActivity {
     }
 
 
-    public void getRegistrationToken1() {
+    public void getRegistrationToken() {
         long homeId = homeBeansList.get(0).getHomeId();
         // Toast.makeText(context.get(),String.valueOf(homeBeansList.get(0).getHomeId()), Toast.LENGTH_SHORT).show();
 
         TuyaHomeSdk.getActivatorInstance().getActivatorToken(homeId, new ITuyaActivatorGetToken() {
             @Override
             public void onSuccess(String token) {
-             //   Toast.makeText(DeviceSearchActivity.this, "Token Successful " + token, Toast.LENGTH_SHORT).show();
+                //   Toast.makeText(DeviceSearchActivity.this, "Token Successful " + token, Toast.LENGTH_SHORT).show();
                 currentRegistrationToken = token;
                 searchDevices(currentRegistrationToken);
             }
@@ -157,47 +158,6 @@ public class DeviceSearchActivity extends AppCompatActivity {
         });
     }
 
-
-    private void createHome(String homeName, List<String> roomList) {
-        TuyaHomeSdk.getHomeManagerInstance().createHome(homeName,
-                0, 0, "home", roomList, new ITuyaHomeResultCallback() {
-                    @Override
-                    public void onSuccess(HomeBean bean) {
-                        currentHomeBean = bean;
-                        Toast.makeText(DeviceSearchActivity.this, "Home Creation Successful", Toast.LENGTH_LONG).show();
-                        getRegistrationToken();
-
-
-                    }
-
-                    @Override
-                    public void onError(String errorCode, String errorMsg) {
-                        Toast.makeText(DeviceSearchActivity.this, "Home Creation failed", Toast.LENGTH_LONG).show();
-
-                    }
-                });
-
-    }
-
-
-    private void getRegistrationToken() {
-
-        long homeId = currentHomeBean.getHomeId();
-        TuyaHomeSdk.getActivatorInstance().getActivatorToken(homeId, new ITuyaActivatorGetToken() {
-            @Override
-            public void onSuccess(String token) {
-                currentRegistrationToken = token;
-                Toast.makeText(DeviceSearchActivity.this, "Token = " + token, Toast.LENGTH_LONG).show();
-                searchDevices(currentRegistrationToken);
-            }
-
-            @Override
-            public void onFailure(String errorCode, String errorMsg) {
-                Toast.makeText(DeviceSearchActivity.this, "Failed to get Registration Token", Toast.LENGTH_LONG).show();
-
-            }
-        });
-    }
 
     private void searchDevices(String token) {
 
@@ -229,10 +189,25 @@ public class DeviceSearchActivity extends AppCompatActivity {
                         */
                         tuyaActivator.stop();
 
-                        Intent intent = new Intent(DeviceSearchActivity.this, DeviceControlActivity.class);
-                        intent.putExtra("DeviceId", currentDeviceBean.devId);
-                        intent.putExtra("DeviceName", currentDeviceBean.name);
-                        startActivity(intent);
+                        if(type == "light") {
+                            Intent intent = new Intent(DeviceSearchActivity.this, DeviceControlActivity.class);
+                            intent.putExtra("DeviceId", currentDeviceBean.devId);
+                            intent.putExtra("DeviceName", currentDeviceBean.name);
+                            startActivity(intent);
+                            finish();
+                        }else  if(type == "switch"){
+                            Intent intent = new Intent(DeviceSearchActivity.this, SwitchControlActivity.class);
+                            intent.putExtra("DeviceId", currentDeviceBean.devId);
+                            intent.putExtra("DeviceName", currentDeviceBean.name);
+                            startActivity(intent);
+                            finish();
+                        }else{
+                            Intent intent = new Intent(DeviceSearchActivity.this, DimmerControlActivity.class);
+                            intent.putExtra("DeviceId", currentDeviceBean.devId);
+                            intent.putExtra("DeviceName", currentDeviceBean.name);
+                            startActivity(intent);
+                            finish();
+                        }
 
                     }
 

@@ -43,7 +43,7 @@ public class HomeActivity extends AppCompatActivity {
         binding.addDevice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this,DeviceSearchActivity.class));
+                startActivity(new Intent(HomeActivity.this,DeviceTypeActivity.class));
             }
         });
 
