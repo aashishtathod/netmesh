@@ -35,6 +35,7 @@ public class DimmerControlActivity extends AppCompatActivity {
         devName = getIntent().getExtras().getString("DeviceName");
 
         binding.name.setText(devName);
+        binding.switchCheck.setChecked(true);
 
 
         controlDevice = new TuyaLightDevice(devId);

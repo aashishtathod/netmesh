@@ -16,8 +16,8 @@ import com.google.android.material.navigation.NavigationBarView;
 
 public class DeviceControlActivity extends AppCompatActivity {
     private ActivityDeviceControlBinding binding;
-
     private String devId, devName;
+
 
 
     private DeviceControlViewModel viewModel;

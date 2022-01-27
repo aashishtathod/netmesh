@@ -71,6 +71,10 @@
 
             <EditText
                 android:id="@+id/wifi"
+                android:imeOptions="actionNext"
+                android:maxLines="1"
+                android:nextFocusDown="@id/password"
+                android:inputType="text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -83,11 +87,13 @@
 
             <EditText
                 android:id="@+id/password"
+                android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-
+                android:imeOptions="actionNext"
+                android:maxLines="1"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/bg_edit_text"

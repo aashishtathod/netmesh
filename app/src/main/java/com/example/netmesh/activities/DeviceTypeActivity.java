@@ -11,6 +11,12 @@ import com.example.netmesh.databinding.ActivityDeviceTypeBinding;
 public class DeviceTypeActivity extends AppCompatActivity {
     private ActivityDeviceTypeBinding binding;
 
+    static final String LIGHT ="light";
+    static final String SWITCH ="switch";
+    static final String DIMMER ="dimmer";
+    static final String TYPE ="type";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +30,7 @@ public class DeviceTypeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DeviceTypeActivity.this , WifiPassActivity.class);
-                intent.putExtra("type", "light");
+                intent.putExtra(TYPE, LIGHT);
                 startActivity(intent);
                 finish();
             }
@@ -34,7 +40,7 @@ public class DeviceTypeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DeviceTypeActivity.this , WifiPassActivity.class);
-                intent.putExtra("type", "switch");
+                intent.putExtra(TYPE, SWITCH);
                 startActivity(intent);
                 finish();
             }
@@ -44,7 +50,7 @@ public class DeviceTypeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DeviceTypeActivity.this , WifiPassActivity.class);
-                intent.putExtra("type", "dimmer");
+                intent.putExtra(TYPE, DIMMER);
                 startActivity(intent);
                 finish();
             }

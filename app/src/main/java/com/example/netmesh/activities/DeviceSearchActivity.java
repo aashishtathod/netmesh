@@ -40,6 +40,11 @@ public class DeviceSearchActivity extends AppCompatActivity {
     private DeviceBean currentDeviceBean;
     private ITuyaActivator tuyaActivator;
 
+    static final String LIGHT ="light";
+    static final String SWITCH ="switch";
+    static final String DIMMER ="dimmer";
+    static final String TYPE ="type";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +54,7 @@ public class DeviceSearchActivity extends AppCompatActivity {
 
         ssid = getIntent().getStringExtra("wifi");
         password = getIntent().getStringExtra("pass");
-        type = getIntent().getStringExtra("type");
+        type = getIntent().getStringExtra(TYPE);
 
       //  Toast.makeText(this, ssid +"/"+password +"/"+type, Toast.LENGTH_SHORT).show();
 
@@ -88,25 +93,8 @@ public class DeviceSearchActivity extends AppCompatActivity {
         binding.progressBar.setVisibility(View.VISIBLE);
 
 
-
             queryHomeList();
 
-
-      /*  createHome(homeName, roomList);
-
-
-        binding.imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (tuyaActivator == null) {
-                    searchDevices(currentRegistrationToken);
-                } else {
-                    tuyaActivator.stop();
-                    tuyaActivator.start();
-
-                }
-            }
-        });*/
 
 
         // viewModel.queryHomeList(this);
@@ -189,19 +177,19 @@ public class DeviceSearchActivity extends AppCompatActivity {
                         */
                         tuyaActivator.stop();
 
-                        if(type == "light") {
+                        if(type.equals(LIGHT)) {
                             Intent intent = new Intent(DeviceSearchActivity.this, DeviceControlActivity.class);
                             intent.putExtra("DeviceId", currentDeviceBean.devId);
                             intent.putExtra("DeviceName", currentDeviceBean.name);
                             startActivity(intent);
                             finish();
-                        }else  if(type == "switch"){
+                        }else if(type.equals(SWITCH)){
                             Intent intent = new Intent(DeviceSearchActivity.this, SwitchControlActivity.class);
                             intent.putExtra("DeviceId", currentDeviceBean.devId);
                             intent.putExtra("DeviceName", currentDeviceBean.name);
                             startActivity(intent);
                             finish();
-                        }else{
+                        }else if (type.equals(DIMMER)){
                             Intent intent = new Intent(DeviceSearchActivity.this, DimmerControlActivity.class);
                             intent.putExtra("DeviceId", currentDeviceBean.devId);
                             intent.putExtra("DeviceName", currentDeviceBean.name);
